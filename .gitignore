@@ -1,0 +1,10 @@
+# Java
+.idea/
+*/.idea/
+/target/
+
+# Eclipse stuff
+.project
+.classpath
+.factorypath
+.settings/
