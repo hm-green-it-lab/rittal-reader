@@ -3,16 +3,34 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <name>Rittal Reader</name>
+    <groupId>edu.hm.greenit.tools</groupId>
     <artifactId>rittal-reader</artifactId>
     <version>1.0</version>
     <description>A service that reads power data from Rittal PDU</description>
 
-    <parent>
-        <groupId>edu.hm.greenit.tools</groupId>
-        <artifactId>root</artifactId>
-        <version>1.0</version>
-    </parent>
+    <properties>
+        <compiler-plugin.version>3.14.0</compiler-plugin.version>
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
+        <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
+        <quarkus.platform.version>3.24.5</quarkus.platform.version>
+        <maven.compiler.parameters>true</maven.compiler.parameters>
+    </properties>
 
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${quarkus.platform.group-id}</groupId>
+                <artifactId>${quarkus.platform.artifact-id}</artifactId>
+                <version>${quarkus.platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -26,6 +44,7 @@
         <dependency>
             <groupId>org.snmp4j</groupId>
             <artifactId>snmp4j</artifactId>
+            <version>3.9.6</version>
         </dependency>
         <dependency>
             <groupId>javax.annotation</groupId>
