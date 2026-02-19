@@ -21,6 +21,75 @@ rittal.snmp.address=[IP]/[PORT]
 rittal.snmp.oids=[OID1],[OID2]
 ```
 
+### Providing a List of OIDs
+
+There are multiple ways to provide a list of OIDs to the application at startup:
+
+#### 1. Configuration File (application.properties)
+
+The simplest method is to edit the `src/main/resources/application.properties` file before building:
+
+```properties
+rittal.snmp.oids=1.3.6.1.4.1.2606.7.4.2.2.1.10.2.1,1.3.6.1.4.1.2606.7.4.2.2.1.10.2.2
+```
+
+Multiple OIDs are separated by commas. Whitespace around OIDs is automatically trimmed.
+
+#### 2. Environment Variables
+
+Override the configuration at runtime using environment variables:
+
+**Windows PowerShell:**
+```powershell
+$env:RITTAL_SNMP_OIDS="1.3.6.1.4.1.2606.7.4.2.2.1.10.2.1,1.3.6.1.4.1.2606.7.4.2.2.1.10.2.2"
+java -jar target\rittal-reader-*-runner.jar
+```
+
+**Linux/macOS:**
+```bash
+export RITTAL_SNMP_OIDS="1.3.6.1.4.1.2606.7.4.2.2.1.10.2.1,1.3.6.1.4.1.2606.7.4.2.2.1.10.2.2"
+java -jar target/rittal-reader-*-runner.jar
+```
+
+> **Note:** Environment variables use underscores instead of dots and are UPPERCASE.
+
+#### 3. Command Line Arguments
+
+Pass configuration directly on the command line:
+
+```bash
+java -Drittal.snmp.oids=1.3.6.1.4.1.2606.7.4.2.2.1.10.2.1,1.3.6.1.4.1.2606.7.4.2.2.1.10.2.2 -jar target/rittal-reader-*-runner.jar
+```
+
+#### 4. External Configuration File
+
+Create an `application.properties` file in the same directory as the JAR:
+
+```properties
+rittal.snmp.oids=1.3.6.1.4.1.2606.7.4.2.2.1.10.2.1,1.3.6.1.4.1.2606.7.4.2.2.1.10.2.2
+```
+
+Then run:
+```bash
+java -jar rittal-reader-*-runner.jar
+```
+
+The external configuration file takes precedence over the bundled one.
+
+#### Configuration Priority
+
+Quarkus applies configuration in the following order (highest priority first):
+1. System properties (`-D` command line arguments)
+2. Environment variables
+3. External `application.properties` (in current directory)
+4. Bundled `application.properties` (in JAR)
+
+**Example with multiple OIDs:**
+```properties
+# Power consumption for multiple phases
+rittal.snmp.oids=1.3.6.1.4.1.2606.7.4.2.2.1.10.2.1,1.3.6.1.4.1.2606.7.4.2.2.1.10.2.2,1.3.6.1.4.1.2606.7.4.2.2.1.10.2.3
+```
+
 ## Build
 
 ```bash
