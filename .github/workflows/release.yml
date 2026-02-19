@@ -34,7 +34,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            target/rittal-reader-1.0.jar
             target/rittal-reader-1.0-runner.jar
           generate_release_notes: true
           draft: false
