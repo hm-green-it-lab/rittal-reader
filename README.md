@@ -90,6 +90,65 @@ Quarkus applies configuration in the following order (highest priority first):
 rittal.snmp.oids=1.3.6.1.4.1.2606.7.4.2.2.1.10.2.1,1.3.6.1.4.1.2606.7.4.2.2.1.10.2.2,1.3.6.1.4.1.2606.7.4.2.2.1.10.2.3
 ```
 
+### Configuring SNMP IP Address and Port
+
+The SNMP target device address and port can be configured in the same ways as the OIDs. The configuration property is `rittal.snmp.address` and follows the format `IP/PORT`.
+
+#### 1. Configuration File (application.properties)
+
+Edit the `src/main/resources/application.properties` file before building:
+
+```properties
+rittal.snmp.address=192.168.1.100/161
+```
+
+The format is `IP_ADDRESS/PORT`. The standard SNMP port is `161`.
+
+#### 2. Environment Variables
+
+Override at runtime using environment variables:
+
+**Windows PowerShell:**
+```powershell
+$env:RITTAL_SNMP_ADDRESS="192.168.1.100/161"
+java -jar target\rittal-reader-*-runner.jar
+```
+
+**Linux/macOS:**
+```bash
+export RITTAL_SNMP_ADDRESS="192.168.1.100/161"
+java -jar target/rittal-reader-*-runner.jar
+```
+
+#### 3. Command Line Arguments
+
+Pass the address directly on the command line:
+
+```bash
+java -Drittal.snmp.address=192.168.1.100/161 -jar target/rittal-reader-*-runner.jar
+```
+
+#### 4. External Configuration File
+
+Create an `application.properties` file in the same directory as the JAR:
+
+```properties
+rittal.snmp.address=192.168.1.100/161
+```
+
+**Complete configuration example:**
+```properties
+# SNMP device connection
+rittal.snmp.address=192.168.1.100/161
+rittal.snmp.community=public
+
+# OIDs to query
+rittal.snmp.oids=1.3.6.1.4.1.2606.7.4.2.2.1.10.2.1,1.3.6.1.4.1.2606.7.4.2.2.1.10.2.2
+
+# Polling schedule (every 10 seconds)
+rittal.cron=*/10 * * * * ?
+```
+
 ## Build
 
 ```bash
